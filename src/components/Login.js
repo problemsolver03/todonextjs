@@ -3,10 +3,15 @@ import { Formik } from "formik";
 import { useState } from "react";
 import Register from "./Register";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { updateUser } from "@/stores/userSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 const Login = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const [login, setLogin] = useState(true);
+  const [error, setError] = useState({ message: "" });
 
   const toggleRegister = () => {
     setLogin(!login);
@@ -32,11 +37,21 @@ const Login = () => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-          router.push("/dashboard");
-        }, 400);
+        axios
+          .post("/api/login", { ...values })
+          .then((res) => {
+            console.log(res);
+            if (res.data.success === false) {
+              setError({ message: res.data.message });
+            } else {
+              dispatch(updateUser({ ...res.data.data }));
+              router.push("/dashboard");
+            }
+          })
+          .catch((err) => {
+            setError({ message: res.data.message });
+          });
+        setSubmitting(false);
       }}
     >
       {({
@@ -59,6 +74,11 @@ const Login = () => {
               Login or register to manage tasks
             </small>
           </h1>
+          {error.message !== "" ? (
+            <p className="bg-red-600 rounded mb-2 text-white p-2">
+              {error.message}
+            </p>
+          ) : null}
           <div>
             <label className="block">Email</label>
             <input

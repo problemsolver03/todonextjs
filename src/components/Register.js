@@ -1,8 +1,19 @@
 "use client";
 import { Formik } from "formik";
+import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import axios from "axios";
 
 const Register = (props) => {
+  const router = useRouter();
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+
+  const [error, setError] = useState({ message: "" });
+
   return (
     <Formik
       initialValues={{ name: "", email: "", password: "" }}
@@ -25,11 +36,23 @@ const Register = (props) => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-
-          setSubmitting(false);
-        }, 400);
+        axios
+          .post("/api/register", { ...values })
+          .then((res) => {
+            if (res.data.success === false) {
+              setError({ message: res.data.message });
+            } else {
+              router.push("/dashboard");
+            }
+            setSubmitting(false);
+          })
+          .catch((err) => {
+            setSubmitting(false);
+            setError({
+              message:
+                "Sorry there was an error while processing your request.",
+            });
+          });
       }}
     >
       {({
@@ -52,6 +75,11 @@ const Register = (props) => {
               Register to manage tasks
             </small>
           </h1>
+          {error.message !== "" ? (
+            <p className="bg-red-600 rounded mb-2 text-white p-2">
+              {error.message}
+            </p>
+          ) : null}
           <div>
             <label className="block">Name</label>
             <input
@@ -116,12 +144,12 @@ const Register = (props) => {
           </button>
 
           <p className="text-center text-gray-600 text-sm mt-6">
-            Don't have an account?{" "}
+            Already registered?{" "}
             <span
               className="border-dashed border-b hover:cursor-pointer hover:text-blue-800"
               onClick={props.toggleRegister}
             >
-              Register
+              Login
             </span>{" "}
           </p>
         </form>

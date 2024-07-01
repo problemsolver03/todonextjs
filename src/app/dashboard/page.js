@@ -1,5 +1,11 @@
+import Tasks from "@/components/Tasks";
+
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <Tasks />
+    </div>
+  );
 };
 
 export default page;

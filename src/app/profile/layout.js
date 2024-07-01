@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import WrapperRedux from "@/components/WrapperRedux";
 
 export default function DashboardLayout({
   children, // will be a page or nested layout
@@ -9,7 +8,7 @@ export default function DashboardLayout({
       <nav>
         <Navbar />
       </nav>
-      <WrapperRedux>{children}</WrapperRedux>
+      {children}
     </section>
   );
 }
