@@ -12,7 +12,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState(true);
   const [error, setError] = useState({ message: "" });
-
+  localStorage.removeItem("persist:tasks");
   const toggleRegister = () => {
     setLogin(!login);
   };
@@ -40,7 +40,6 @@ const Login = () => {
         axios
           .post("/api/login", { ...values })
           .then((res) => {
-            console.log(res);
             if (res.data.success === false) {
               setError({ message: res.data.message });
             } else {

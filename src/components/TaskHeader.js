@@ -1,41 +1,42 @@
-import { HiOutlineSearch } from "react-icons/hi";
 import TaskModal from "./TaskModal";
 import { useState } from "react";
 import TaskForm from "./TaskForm";
-const TaskHeader = () => {
+import FilterTasks from "./FilterTasks";
+const TaskHeader = (props) => {
   const [toggle, setToggleModal] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center pb-5">
-        <h1 className="text-2xl font-bold">Simple task manager</h1>
-        <button
-          className="bg-blue-800 px-2 py-1.5 text-white rounded hover:bg-blue-900"
-          type="button"
-          onClick={() => {
-            setToggleModal(!toggle);
-          }}
-        >
-          + Add Tasks
-        </button>
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl ">
+          <span className=" font-light block">Welcome Purush</span>
+          <span className="text-sm block">Welcome Purush</span>
+        </h1>
+        <div className="flex justify-center">
+          <FilterTasks />
+          <button
+            className=" px-2 py-1.5 hover:text-slate-900 border-slate-800 border-[3px] rounded-lg bg-slate-900 text-white hover:bg-transparent"
+            type="button"
+            onClick={() => {
+              setToggleModal(!toggle);
+            }}
+          >
+            + Add Tasks
+          </button>
+        </div>
       </div>
-      <div className="relative">
-        <HiOutlineSearch
-          className="left-2 text-gray-600 absolute top-[10px]"
-          size={"20px"}
-        />
-        <input
-          type="text"
-          className="border p-2 w-[360px] rounded-lg bg-slate-100 pl-8"
-          placeholder="Search for tasks..."
-        />
-      </div>
+
       {toggle ? (
         <TaskModal
           title="Add new task"
           description="Scribble down what you would like to accomplish"
           closeCallback={setToggleModal}
         >
-          <TaskForm />
+          <TaskForm
+            getTasksList={props.getTasksList}
+            closeCallback={setToggleModal}
+            activeTask={null}
+            toast={props.toast}
+          />
         </TaskModal>
       ) : null}
     </>

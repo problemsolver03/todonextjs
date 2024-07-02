@@ -2,7 +2,7 @@ import Tasks from "@/components/Tasks";
 
 const page = () => {
   return (
-    <div>
+    <div className="bg-slate-100">
       <Tasks />
     </div>
   );

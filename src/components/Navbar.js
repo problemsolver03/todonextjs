@@ -5,14 +5,13 @@ import Link from "next/link";
 import { connect } from "react-redux";
 
 const Navbar = (props) => {
-  console.log(props);
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const menuToggler = () => {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <nav className="bg-white border-gray-200 border-b ">
+    <nav className="bg-slate-200 border-gray-200 border-b ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a
           href="https://flowbite.com/"
@@ -23,8 +22,8 @@ const Navbar = (props) => {
             className="h-8"
             alt="Flowbite Logo"
           />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap ">
-            STK
+          <span className="self-center text-2xl font-light whitespace-nowrap ">
+            TaskManager
           </span>
         </a>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
@@ -81,6 +80,8 @@ const Navbar = (props) => {
 
 // export default Navbar;
 
-const mapStateToProps = (state) => state.value;
+const mapStateToProps = (state) => {
+  return state.user.value;
+};
 
 export default connect(mapStateToProps, {})(Navbar);

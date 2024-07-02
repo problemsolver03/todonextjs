@@ -4,11 +4,11 @@ import { headers } from "next/headers";
 export async function POST(request) {
   const requestBody = await request.json();
   const headersList = headers();
-  const token = headersList.get("Authorization").replace("Bearer ");
+  const token = headersList.get("Authorization").replace("Bearer ", "");
 
   validateSesssion(token)
     .then(async (res) => {
-      if (true) {
+      if (res) {
         const supabase = createClient(
           process.env.NEXT_PUBLIC_SUPABASE_URL,
           process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY

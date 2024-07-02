@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 export async function POST(request) {
   const requestBody = await request.json();
-  console.log(requestBody);
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,

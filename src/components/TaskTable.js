@@ -1,55 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import ProgressIndicator from "./ProgressIndicator";
+import { useState, useEffect } from "react";
 import TaskModal from "./TaskModal";
 import TaskForm from "./TaskForm";
-const TaskTable = () => {
+import { connect } from "react-redux";
+import TaskCard from "./TaskCard";
+
+const TaskTable = (props) => {
   const [modalSts, setModalSts] = useState(false);
+  const [activeTask, setActiveTask] = useState(null);
+
+  useEffect(() => {
+    props.getTasksList();
+  }, []);
+
   return (
-    <div className="border rounded-lg mt-8">
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th className="text-left text-gray-600 font-normal text-sm p-3">
-              Title
-            </th>
-            <th className="text-left text-gray-600 font-normal text-sm p-3">
-              Description
-            </th>
-            <th
-              className="text-left text-gray-600 font-normal text-sm p-3"
-              colSpan={2}
-            >
-              Status
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="border-t hover:bg-indigo-100">
-            <td className="text-indigo-900 p-2.5 ">Finish project</td>
-            <td className="text-indigo-900 p-2.5 ">
-              Complte the pesto application for submission{" "}
-            </td>
-            <td className="text-indigo-900 p-2.5 ">
-              <div className="flex  items-center">
-                <ProgressIndicator type="inprogress" designType="icon" />
-              </div>
-            </td>
-            <td className="text-indigo-900 p-2.5 ">
-              <button
-                type="button"
-                className="bg-slate-800 text-white rounded-full px-3 py-1 text-sm hover:bg-slate-900"
-                onClick={() => {
-                  setModalSts(!modalSts);
-                }}
-              >
-                Update Status
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div className=" rounded-lg mt-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {props.tasks.value.map((task, i) => {
+          return (
+            <TaskCard
+              key={i}
+              task={task}
+              setActiveTask={setActiveTask}
+              setModalSts={setModalSts}
+              modalsts={modalSts}
+            />
+          );
+        })}
+      </div>
 
       {modalSts ? (
         <TaskModal
@@ -57,11 +36,19 @@ const TaskTable = () => {
           description="Based on the current please select the applicable status and press the update button"
           closeCallback={setModalSts}
         >
-          <TaskForm />
+          <TaskForm
+            getTasksList={props.getTasksList}
+            closeCallback={setModalSts}
+            activeTask={activeTask}
+            toast={props.toast}
+          />
         </TaskModal>
       ) : null}
     </div>
   );
 };
 
-export default TaskTable;
+const mapStateToProps = (state) => {
+  return state;
+};
+export default connect(mapStateToProps, {})(TaskTable);

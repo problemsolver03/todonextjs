@@ -5,7 +5,7 @@ export default function DashboardLayout({
   children, // will be a page or nested layout
 }) {
   return (
-    <section>
+    <section className="bg-slate-100 min-h-screen">
       <nav>
         <Navbar />
       </nav>
