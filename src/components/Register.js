@@ -67,7 +67,7 @@ const Register = (props) => {
       }) => (
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-8 w-[360px] mx-auto  rounded"
+          className="bg-slate-900 p-8 w-[360px] mx-auto  rounded text-slate-300 shadow-xl"
         >
           <h1 className="mb-4 text-2xl font-medium">
             Welcome!
@@ -143,7 +143,7 @@ const Register = (props) => {
             {isSubmitting ? "Please wait.." : "Submit"}
           </button>
 
-          <p className="text-center text-gray-600 text-sm mt-6">
+          <p className="text-center text-gray-400 text-sm mt-6">
             Already registered?{" "}
             <span
               className="border-dashed border-b hover:cursor-pointer hover:text-blue-800"

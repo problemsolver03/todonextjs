@@ -7,14 +7,15 @@ const TaskHeader = (props) => {
   return (
     <>
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl ">
-          <span className=" font-light block">Welcome Purush</span>
-          <span className="text-sm block">Welcome Purush</span>
+        <h1 className="text-3xl mb-6 text-slate-300">
+          <span className=" font-light block">Welcome Purush!</span>
+          <span className="text-base block">You have 14 tasks to address.</span>
         </h1>
         <div className="flex justify-center">
           <FilterTasks />
           <button
-            className=" px-2 py-1.5 hover:text-slate-900 border-slate-800 border-[3px] rounded-lg bg-slate-900 text-white hover:bg-transparent"
+            className=" px-2 py-1.5  rounded-lg bg-purple-800 text-white 
+            hover:bg-purple-950"
             type="button"
             onClick={() => {
               setToggleModal(!toggle);

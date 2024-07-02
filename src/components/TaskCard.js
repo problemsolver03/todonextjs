@@ -17,7 +17,7 @@ const TaskCard = (props) => {
     <div
       className={`group shadow-lg p-5 rounded-lg relative ${stsColor(
         props.task.status
-      )} border-b-8 cursor-pointer hover:bg-slate-200  bg-white`}
+      )} border-b-8 cursor-pointer hover:bg-blue-950  bg-slate-900`}
       onClick={() => {
         props.setActiveTask(props.task);
         props.setModalSts(!props.modalSts);
@@ -25,17 +25,17 @@ const TaskCard = (props) => {
     >
       <p className="mb-4 flex items-center">
         <ProgressIndicator type={props.task.status} designType="icon" />
-        <span className="text-[13px] ml-2 capitalize text-slate-500 font-semibold">
+        <span className="text-[12px] ml-2 uppercase text-slate-400 font-semibold">
           {props.task.status}
         </span>
       </p>
-      <p className="text-[13px] mb-2 text-slate-400 font-medium">
+      <p className="text-[13px] mb-2 text-slate-500 font-medium">
         {prettyDate(props.task.created_at)}
       </p>
-      <p className="text-lg font-semibold text-slate-700 capitalize">
+      <p className="text-lg font-semibold text-slate-300 capitalize">
         {props.task.title}
       </p>
-      <p className="text-sm font-medium text-slate-500 pb-2">
+      <p className="text-sm font-medium text-slate-400 pb-2">
         {props.task.description}
       </p>
 

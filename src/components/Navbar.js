@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
+import { BiCheckSquare } from "react-icons/bi";
 
 const Navbar = (props) => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -11,25 +12,21 @@ const Navbar = (props) => {
     setToggleMenu(!toggleMenu);
   };
   return (
-    <nav className="bg-slate-200 border-gray-200 border-b ">
+    <nav className="bg-slate-900 border-slate-950 border-b ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a
-          href="https://flowbite.com/"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
+        <Link
+          href="/dashboard"
+          className="flex items-center space-x-1 rtl:space-x-reverse"
         >
-          <img
-            src="https://flowbite.com/docs/images/logo.svg"
-            className="h-8"
-            alt="Flowbite Logo"
-          />
-          <span className="self-center text-2xl font-light whitespace-nowrap ">
+          <BiCheckSquare size={"40px"} color="#fff" />
+          <span className=" text-2xl font-semobold  whitespace-nowrap text-slate-300">
             TaskManager
           </span>
-        </a>
+        </Link>
         <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse relative">
           <button
             type="button"
-            className="flex text-sm  border rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 "
+            className="flex text-sm bg-slate-700 text-white border-2 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 border-slate-400"
             id="user-menu-button"
             aria-expanded="false"
             data-dropdown-toggle="user-dropdown"
@@ -37,26 +34,26 @@ const Navbar = (props) => {
             onClick={menuToggler}
           >
             <span className="sr-only">Open user menu</span>
-            <p className="   px-3 py-1.5 capitalize">Welcome! {props.name}</p>
+            <p className="px-3 py-1.5 capitalize">
+              {props.name.substring(0, 1)}
+            </p>
           </button>
           {/* Dropdown menu */}
           <div
             className={`z-50 ${
               toggleMenu ? "visible" : "hidden"
-            } my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow "
-            id="user-dropdown absolute top-5 right-0`}
+            } my-4 text-base list-none bg-slate-800 divide-y divide-gray-800 rounded-lg shadow "
+            id="user-dropdown absolute top-5 right-0 text-white`}
           >
             <div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 ">Bonnie Green</span>
-              <span className="block text-sm  text-gray-500 truncate ">
-                {props.email}
-              </span>
+              <span className="block text-sm ">{props.name}</span>
+              <span className="block text-sm   truncate ">{props.email}</span>
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
                 <Link
                   href="/dashboard"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   "
+                  className="block px-4 py-2 text-sm  hover:bg-gray-900   "
                 >
                   Dashboard
                 </Link>
@@ -65,7 +62,7 @@ const Navbar = (props) => {
               <li>
                 <Link
                   href="/"
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100   "
+                  className="block px-4 py-2 text-sm  hover:bg-gray-900   "
                 >
                   Sign out
                 </Link>

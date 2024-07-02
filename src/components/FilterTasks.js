@@ -25,7 +25,7 @@ const FilterTasks = (props) => {
 
   return (
     <select
-      className="border-slate-400 border-[3px] p-2 rounded-lg mr-2 px-3"
+      className="border-slate-900 border-[3px] p-2 rounded-lg mr-2 px-3 bg-slate-700 text-white"
       onChange={(e) => {
         getTasksList(e.target.value);
       }}

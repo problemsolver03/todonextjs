@@ -46,11 +46,11 @@ const Login = () => {
               dispatch(updateUser({ ...res.data.data }));
               router.push("/dashboard");
             }
+            setSubmitting(false);
           })
           .catch((err) => {
             setError({ message: res.data.message });
           });
-        setSubmitting(false);
       }}
     >
       {({
@@ -65,7 +65,7 @@ const Login = () => {
       }) => (
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-8 w-[360px] mx-auto  rounded"
+          className="bg-slate-900 p-8 w-[360px] mx-auto  rounded text-slate-300 shadow-xl"
         >
           <h1 className="mb-4 text-2xl font-medium">
             Welcome!
@@ -92,7 +92,7 @@ const Login = () => {
               autoComplete="new-password"
             />
 
-            <span className="text-red-700">
+            <span className="text-red-500">
               {errors.email && touched.email && errors.email}
             </span>
           </div>
@@ -110,7 +110,7 @@ const Login = () => {
               }`}
               autoComplete="new-password"
             />
-            <span className="text-red-700">
+            <span className="text-red-500">
               {errors.password && touched.password && errors.password}
             </span>
           </div>
@@ -123,7 +123,7 @@ const Login = () => {
             {isSubmitting ? "Please wait.." : "Submit"}
           </button>
 
-          <p className="text-center text-gray-600 text-sm mt-6">
+          <p className="text-center text-gray-400 text-sm mt-6">
             Don't have an account?{" "}
             <span
               className="border-dashed border-b hover:cursor-pointer hover:text-blue-800"
