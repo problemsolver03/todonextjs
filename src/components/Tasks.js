@@ -12,6 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Tasks = (props) => {
   const dispatch = useAppDispatch();
 
+  // api call to retrive the list of tasks created by the users
   const getTasksList = () => {
     axios
       .get(`/api/gettasks?id=${props.user.value.id}`, {
