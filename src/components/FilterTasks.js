@@ -6,6 +6,8 @@ import axios from "axios";
 
 const FilterTasks = (props) => {
   const dispatch = useAppDispatch();
+
+  // Retrives the list of tasks based on a status
   const getTasksList = (status) => {
     axios
       .get(`/api/gettasks?id=${props.user.value.id}&status=${status}`, {
@@ -31,7 +33,6 @@ const FilterTasks = (props) => {
       }}
     >
       <option value="">Filter tasks by status</option>
-
       <option value="todo">Todo</option>
       <option value="inprogress">In Progress</option>
       <option value="done">Done</option>

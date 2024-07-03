@@ -4,6 +4,7 @@ import WrapperRedux from "@/components/WrapperRedux";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// default layout page for all pages
 export const metadata = {
   title: "Task management app",
   description: "Simple application to manage tasks.",

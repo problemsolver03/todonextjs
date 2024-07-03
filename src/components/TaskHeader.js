@@ -2,14 +2,17 @@ import TaskModal from "./TaskModal";
 import { useState } from "react";
 import TaskForm from "./TaskForm";
 import FilterTasks from "./FilterTasks";
+import TaskCount from "./TaskCount";
+
+// Header component to render title and the add task option
 const TaskHeader = (props) => {
   const [toggle, setToggleModal] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-col md:flex-row">
         <h1 className="text-3xl mb-6 text-slate-300">
           <span className=" font-light block">Welcome Purush!</span>
-          <span className="text-base block">You have 14 tasks to address.</span>
+          <TaskCount />
         </h1>
         <div className="flex justify-center">
           <FilterTasks />
@@ -26,6 +29,7 @@ const TaskHeader = (props) => {
         </div>
       </div>
 
+      {/* hiding and showing the modal based on the toggle state */}
       {toggle ? (
         <TaskModal
           title="Add new task"

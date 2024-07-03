@@ -5,6 +5,13 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {},
+  theme: {
+    extend: {
+      animation: {
+        // Bounces 5 times 1s equals 5 seconds
+        "bounce-short": "spin 1s linear 1.2s",
+      },
+    },
+  },
   plugins: [],
 };

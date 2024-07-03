@@ -16,7 +16,8 @@ const TaskTable = (props) => {
 
   return (
     <div className=" rounded-lg mt-8">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      {/* returing the list task as card designs */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {props.tasks.value.map((task, i) => {
           return (
             <TaskCard
@@ -30,6 +31,7 @@ const TaskTable = (props) => {
         })}
       </div>
 
+      {/* showing a form with prefiled details to edit/update the tasks */}
       {modalSts ? (
         <TaskModal
           title="Update task status"

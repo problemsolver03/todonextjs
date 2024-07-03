@@ -8,6 +8,7 @@ export const validateSesssion = async (token) => {
   );
 
   try {
+    // decoding the token to check if the user exsits
     var decoded = jwt.verify(token, process.env.JWTKEY);
     const { data } = await supabase
       .from("users")

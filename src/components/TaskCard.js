@@ -3,6 +3,7 @@ import ProgressIndicator from "./ProgressIndicator";
 import { prettyDate } from "@/common/dateformat";
 
 const TaskCard = (props) => {
+  // load borders of cards based on status
   const stsColor = (sts) => {
     switch (sts) {
       case "done":
@@ -15,7 +16,7 @@ const TaskCard = (props) => {
   };
   return (
     <div
-      className={`group shadow-lg p-5 rounded-lg relative ${stsColor(
+      className={`group shadow-lg p-5 rounded-lg   relative ${stsColor(
         props.task.status
       )} border-b-8 cursor-pointer hover:bg-blue-950  bg-slate-900`}
       onClick={() => {

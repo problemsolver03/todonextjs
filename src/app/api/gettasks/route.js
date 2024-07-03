@@ -3,6 +3,7 @@ import { validateSesssion } from "@/common/authenticate";
 import { headers } from "next/headers";
 
 export async function GET(request) {
+  // parsing the request to retrieve the query params
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
   const status = searchParams.get("status");
@@ -10,6 +11,7 @@ export async function GET(request) {
   const headersList = headers();
   const token = headersList.get("Authorization").replace("Bearer ", "");
 
+  //checking if the token is valid
   let validSession = await validateSesssion(token);
 
   if (validSession) {
@@ -18,6 +20,7 @@ export async function GET(request) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     );
 
+    //retriving all tasks
     if (status === null || status === "") {
       const { data, error } = await supabase
         .from("tasks")
@@ -29,7 +32,9 @@ export async function GET(request) {
       } else {
         return Response.json({ success: false, message: "no tasks available" });
       }
-    } else {
+    }
+    //retriving tasks based on specific status
+    else {
       const { data, error } = await supabase
         .from("tasks")
         .select(`id,title,description,status,created_at`)
@@ -43,6 +48,7 @@ export async function GET(request) {
       }
     }
   } else {
+    //returning a error if session is invalid
     return Response.json({
       success: false,
       message: "You're session has expired please login again.",

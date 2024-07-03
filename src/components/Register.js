@@ -63,7 +63,6 @@ const Register = (props) => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        /* and other goodies */
       }) => (
         <form
           onSubmit={handleSubmit}
@@ -146,7 +145,7 @@ const Register = (props) => {
           <p className="text-center text-gray-400 text-sm mt-6">
             Already registered?{" "}
             <span
-              className="border-dashed border-b hover:cursor-pointer hover:text-blue-800"
+              className="border-dashed border-b hover:cursor-pointer hover:text-white"
               onClick={props.toggleRegister}
             >
               Login

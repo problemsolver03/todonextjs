@@ -22,7 +22,6 @@ const TaskForm = (props) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(props.activeTask);
           if (props.activeTask !== null) {
             axios
               .post(
@@ -38,7 +37,6 @@ const TaskForm = (props) => {
                 }
               )
               .then((res) => {
-                console.log(res);
                 props.getTasksList();
                 props.closeCallback(false);
 
@@ -47,6 +45,7 @@ const TaskForm = (props) => {
                 } else {
                   props.toast.error("Task could not be updated");
                 }
+                setSubmitting(false);
               })
               .catch((err) => {
                 console.log(err);
@@ -70,13 +69,12 @@ const TaskForm = (props) => {
                 } else {
                   props.toast.error("Task could not be added");
                 }
+                setSubmitting(false);
               })
               .catch((err) => {
                 console.log(err);
               });
           }
-
-          setSubmitting(false);
         }}
       >
         {({
@@ -87,11 +85,10 @@ const TaskForm = (props) => {
           handleBlur,
           handleSubmit,
           isSubmitting,
-          /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit} className="bg-white">
-            <div>
-              <label className="block">
+          <form onSubmit={handleSubmit} className="bg-transparent">
+            <div className="relative">
+              <label className="block pb-1">
                 Title <span className="text-sm text-red-600">*</span>
               </label>
               <input
@@ -100,19 +97,19 @@ const TaskForm = (props) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.title}
-                className={`border w-full p-2 rounded ${
+                className={`bg-slate-950 border border-slate-700 w-full p-2 rounded ${
                   errors.title ? "border-red-500" : ""
                 }`}
                 autoComplete="new-description"
               />
 
-              <span className="text-red-700">
+              <span className="text-red-500 absolute bottom-[-21px] text-sm w-full left-0">
                 {errors.title && touched.title && errors.title}
               </span>
             </div>
 
-            <div className="mt-4">
-              <label className="block">
+            <div className="mt-8  relative">
+              <label className="block pb-1">
                 Description <span className="text-sm text-red-600">*</span>
               </label>
               <textarea
@@ -120,21 +117,22 @@ const TaskForm = (props) => {
                 name="description"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                rows={4}
                 value={values.description}
-                className={`border w-full p-2 rounded ${
+                className={`bg-slate-950 border border-slate-700 w-full p-2 rounded ${
                   errors.description ? "border-red-500" : ""
                 }`}
                 autoComplete="new-description"
               />
-              <span className="text-red-700">
+              <span className="text-red-500 absolute bottom-[-21px] text-sm w-full left-0">
                 {errors.description &&
                   touched.description &&
                   errors.description}
               </span>
             </div>
 
-            <div className="mt-4">
-              <label className="block">
+            <div className="mt-8  relative">
+              <label className="block pb-1">
                 Status <span className="text-sm text-red-600">*</span>
               </label>
               <select
@@ -142,7 +140,7 @@ const TaskForm = (props) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.status}
-                className={`border w-full p-2 rounded ${
+                className={`bg-slate-950 border border-slate-700 w-full p-2 rounded ${
                   errors.status ? "border-red-500" : ""
                 }`}
               >
@@ -150,7 +148,7 @@ const TaskForm = (props) => {
                 <option value="inprogress">In Progress</option>
                 <option value="done">Done</option>
               </select>
-              <span className="text-red-700">
+              <span className="text-red-500 absolute bottom-[-21px] text-sm w-full left-0">
                 {errors.status && touched.status && errors.status}
               </span>
             </div>
@@ -158,7 +156,7 @@ const TaskForm = (props) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="bg-blue-800 text-white px-3 py-2 w-full rounded mt-5"
+              className="bg-purple-800 text-white px-3 py-2 w-full rounded-lg mt-5"
             >
               {isSubmitting ? "Please wait.." : "Submit"}
             </button>

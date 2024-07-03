@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// slice to store and update the state of tasks
 export const userSlice = createSlice({
   name: "counter",
   initialState: {

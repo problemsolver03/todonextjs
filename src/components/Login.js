@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { updateUser } from "@/stores/userSlice";
 import { useAppDispatch } from "@/app/hooks";
+import { BiCheckSquare } from "react-icons/bi";
 
+// main login component
 const Login = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -16,9 +18,11 @@ const Login = () => {
   const toggleRegister = () => {
     setLogin(!login);
   };
+  // switching to register if the user clicks on register option
   if (!login) {
     return <Register toggleRegister={toggleRegister} />;
   }
+  // rendering login form if the login state is true
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
@@ -29,7 +33,9 @@ const Login = () => {
         }
         if (!values.password) {
           errors.password = "Please provide a password";
-        } else if (
+        }
+        //using regex to validate email address
+        else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
           errors.email = "Invalid email address";
@@ -61,15 +67,20 @@ const Login = () => {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        /* and other goodies */
       }) => (
         <form
           onSubmit={handleSubmit}
           className="bg-slate-900 p-8 w-[360px] mx-auto  rounded text-slate-300 shadow-xl"
         >
-          <h1 className="mb-4 text-2xl font-medium">
+          <div className="flex -ml-1 items-center mb-4">
+            <BiCheckSquare size={"40px"} color="#fff" />
+            <span className=" text-2xl font-semobold  whitespace-nowrap text-slate-300">
+              TaskManager
+            </span>
+          </div>
+          <h1 className="mb-4 text-lg font-medium">
             Welcome!
-            <small className="block mb-2 text-sm font-normal">
+            <small className="block mb-2 text-sm font-normal text-slate-500">
               Login or register to manage tasks
             </small>
           </h1>
@@ -86,13 +97,13 @@ const Login = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
-              className={`border w-full p-2 rounded ${
+              className={`text-slate-800 border w-full p-2 rounded ${
                 errors.email ? "border-red-500" : ""
               }`}
               autoComplete="new-password"
             />
 
-            <span className="text-red-500">
+            <span className="text-red-600">
               {errors.email && touched.email && errors.email}
             </span>
           </div>
@@ -105,7 +116,7 @@ const Login = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              className={`border w-full p-2 rounded ${
+              className={`text-slate-800 border w-full p-2 rounded ${
                 errors.password ? "border-red-500" : ""
               }`}
               autoComplete="new-password"
@@ -126,7 +137,7 @@ const Login = () => {
           <p className="text-center text-gray-400 text-sm mt-6">
             Don't have an account?{" "}
             <span
-              className="border-dashed border-b hover:cursor-pointer hover:text-blue-800"
+              className="border-dashed border-b hover:cursor-pointer hover:text-white"
               onClick={toggleRegister}
             >
               Register

@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import jwt from "jsonwebtoken";
 export async function POST(request) {
+  // parsing the request body to json
   const requestBody = await request.json();
 
   const supabase = createClient(
@@ -8,6 +9,7 @@ export async function POST(request) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
 
+  // inserting a new user to database the email column in database is set to unique, to prevent duplicate account creation
   let response = await supabase
     .from("users")
     .insert({
@@ -15,6 +17,7 @@ export async function POST(request) {
     })
     .select();
 
+  // when the insertion is successfully return a signed token and user details
   if (response.status === 201) {
     let token = jwt.sign({ email: requestBody.email }, process.env.JWTKEY);
 
@@ -27,7 +30,9 @@ export async function POST(request) {
         token: token,
       },
     });
-  } else if (response.status === 409) {
+  }
+  // based on the status code returned from database which indicates a duplicate entry retruning an appropriate response
+  else if (response.status === 409) {
     return Response.json({
       success: false,
       message: "Email is already registered",

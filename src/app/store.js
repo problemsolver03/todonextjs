@@ -8,6 +8,7 @@ const persistConfig = {
   storage,
 };
 
+// combiniing the state into a single store
 const persistedReducer = persistCombineReducers(persistConfig, {
   user: userSlice,
   tasks: tasksSlice,

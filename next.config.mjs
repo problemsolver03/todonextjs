@@ -1,11 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const nextConfig = {
-  env: {
-    supabaseUrl: "https://rmsmqoifdpcskikhhbkz.supabase.co",
-    supabaseKey: process.env.SUPABASE_KEY,
-    jwtKey: process.env.JWTKEY,
-  },
-};
+const nextConfig = {};
 
 export default nextConfig;
