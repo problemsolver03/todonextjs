@@ -91,7 +91,6 @@ const Navbar = (props) => {
 // export default Navbar;
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return state.user;
 };
 
