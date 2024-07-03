@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children, // will be a page or nested layout
 }) {
   return (
-    <section className="bg-slate-100 min-h-screen">
+    <section className="bg-gradient-to-tr from-slate-700 to-slate-900 min-h-screen">
       <nav>
         <Navbar />
       </nav>

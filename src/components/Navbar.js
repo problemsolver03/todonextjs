@@ -1,16 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { connect } from "react-redux";
 import { BiCheckSquare } from "react-icons/bi";
 
 const Navbar = (props) => {
+  useEffect(() => {
+    if (props.value === undefined || props.value === null) {
+      window.location.href = "/";
+    }
+  }, []);
+
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const menuToggler = () => {
     setToggleMenu(!toggleMenu);
   };
+
+  if (props.value === undefined || props.value === null) {
+    return null;
+  }
+
   return (
     <nav className="bg-slate-900 border-slate-950 border-b ">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -35,7 +46,7 @@ const Navbar = (props) => {
           >
             <span className="sr-only">Open user menu</span>
             <p className="px-3 py-1.5 capitalize">
-              {props.name.substring(0, 1)}
+              {props.value.name.substring(0, 1)}
             </p>
           </button>
           {/* Dropdown menu */}
@@ -46,8 +57,10 @@ const Navbar = (props) => {
             id="user-dropdown absolute top-5 right-0 text-white`}
           >
             <div className="px-4 py-3">
-              <span className="block text-sm ">{props.name}</span>
-              <span className="block text-sm   truncate ">{props.email}</span>
+              <span className="block text-sm ">{props.value.name}</span>
+              <span className="block text-sm   truncate ">
+                {props.value.email}
+              </span>
             </div>
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
@@ -78,7 +91,8 @@ const Navbar = (props) => {
 // export default Navbar;
 
 const mapStateToProps = (state) => {
-  return state.user.value;
+  console.log(state);
+  return state.user;
 };
 
 export default connect(mapStateToProps, {})(Navbar);

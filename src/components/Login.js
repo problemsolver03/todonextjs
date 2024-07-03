@@ -14,6 +14,8 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const [login, setLogin] = useState(true);
   const [error, setError] = useState({ message: "" });
+
+  // clearing all state on login page
   localStorage.removeItem("persist:tasks");
   const toggleRegister = () => {
     setLogin(!login);

@@ -1,16 +1,16 @@
 "use client";
 import { Formik } from "formik";
-import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
+import { updateUser } from "@/stores/userSlice";
+import { useAppDispatch } from "@/app/hooks";
 
 const Register = (props) => {
   const router = useRouter();
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
+  const dispatch = useAppDispatch();
+  // clearing all state on login page
+  localStorage.removeItem("persist:tasks");
 
   const [error, setError] = useState({ message: "" });
 
@@ -42,6 +42,7 @@ const Register = (props) => {
             if (res.data.success === false) {
               setError({ message: res.data.message });
             } else {
+              dispatch(updateUser({ ...res.data.data }));
               router.push("/dashboard");
             }
             setSubmitting(false);
@@ -87,7 +88,7 @@ const Register = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
-              className={`border w-full p-2 rounded ${
+              className={`border w-full text-slate-700 p-2 rounded ${
                 errors.name ? "border-red-500" : ""
               }`}
               autoComplete="new-password"
@@ -105,7 +106,7 @@ const Register = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
-              className={`border w-full p-2 rounded ${
+              className={`border w-full text-slate-700 p-2 rounded ${
                 errors.email ? "border-red-500" : ""
               }`}
               autoComplete="new-password"
@@ -124,7 +125,7 @@ const Register = (props) => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.password}
-              className={`border w-full p-2 rounded ${
+              className={`border w-full text-slate-700 p-2 rounded ${
                 errors.password ? "border-red-500" : ""
               }`}
               autoComplete="new-password"
